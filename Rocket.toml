@@ -1,0 +1,2 @@
+[default.databases.rusqlite_patients]
+url = "file:data/patients.db"

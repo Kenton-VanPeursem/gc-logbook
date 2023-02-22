@@ -1,5 +1,5 @@
 use chrono::NaiveDate;
-
+use serde::Serialize;
 
 #[derive(Debug)]
 pub enum Specialty {
@@ -62,7 +62,7 @@ impl Gender {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Patient {
     pub date: NaiveDate,
     pub specialty: Specialty,
@@ -74,7 +74,14 @@ pub struct Patient {
 
 impl Patient {
     pub fn to_csv(&self) -> String {
-        return format!("{},{},{},{},{},{}", self.date, self.specialty.as_str(), self.gender.as_str(), self.age, self.indication, self.summary);
+        return format!(
+            "{},{},{},{},{},{}",
+            self.date,
+            self.specialty.as_str(),
+            self.gender.as_str(),
+            self.age,
+            self.indication,
+            self.summary
+        );
     }
 }
-

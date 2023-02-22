@@ -1,8 +1,8 @@
-use rusqlite::{Connection, Result};
 use chrono::NaiveDate;
+use rusqlite::{Connection, Result};
 
 pub mod patient;
-use patient::{Gender, Specialty, Patient};
+use patient::{Gender, Patient, Specialty};
 
 /// Database connection to SQLite.
 pub struct Database {
@@ -34,9 +34,14 @@ impl Database {
         let mut stmt = self.conn.prepare(
             "INSERT INTO patients (date, specialty, gender, age, indication, summary) VALUES (?, ?, ?, ?, ?, ?);"
         )?;
-        stmt.execute(
-            (p.date, p.specialty.as_str(), p.gender.as_str(), p.age, p.indication, p.summary)
-        )?;
+        stmt.execute((
+            p.date,
+            p.specialty.as_str(),
+            p.gender.as_str(),
+            p.age,
+            p.indication,
+            p.summary,
+        ))?;
 
         Ok(())
     }
